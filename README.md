@@ -287,4 +287,10 @@ This project is for educational purposes as part of the **Posha Robotics Interns
 - [x] Watch robot demo  
 - [x] Explore other modes  
 
-Start with `python3 web_visualizer.py` 🚀
+Start with `python3 web_visualizer.py` 
+
+<img width="1280" height="800" alt="Screenshot from 2025-10-08 19-06-14" src="https://github.com/user-attachments/assets/a7938ce5-e7e5-4420-9573-9826513d4b09" />
+<img width="817" height="536" alt="Screenshot from 2025-10-08 01-31-21" src="https://github.com/user-attachments/assets/a63a97b8-a211-41d3-86e4-745d35736b1a" />
+
+
+
