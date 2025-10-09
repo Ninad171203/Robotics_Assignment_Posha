@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot name="simple_posha_workspace">
+  
+  <!-- Base -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="1.0 0.8 0.02"/>
+      </geometry>
+      <material name="gray">
+        <color rgba="0.7 0.7 0.7 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="1.0 0.8 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Container 1 -->
+  <link name="container_1">
+    <visual>
+      <geometry>
+        <box size="0.15 0.15 0.2"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 0.7"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.15 0.15 0.2"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="container_1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="container_1"/>
+    <origin xyz="0.3 0.3 0.12" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Container 5 -->
+  <link name="container_5">
+    <visual>
+      <geometry>
+        <box size="0.15 0.15 0.2"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 1.0 0.0 0.7"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.15 0.15 0.2"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="container_5_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="container_5"/>
+    <origin xyz="0.3 -0.3 0.12" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Pan 1 -->
+  <link name="pan_1">
+    <visual>
+      <geometry>
+        <cylinder length="0.1" radius="0.13"/>
+      </geometry>
+      <material name="silver">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.13"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="pan_1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="pan_1"/>
+    <origin xyz="0.0 -0.3 0.12" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Pan 2 -->
+  <link name="pan_2">
+    <visual>
+      <geometry>
+        <cylinder length="0.1" radius="0.13"/>
+      </geometry>
+      <material name="silver">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.1" radius="0.13"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="pan_2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="pan_2"/>
+    <origin xyz="0.0 0.3 0.12" rpy="0 0 0"/>
+  </joint>
+
+</robot>

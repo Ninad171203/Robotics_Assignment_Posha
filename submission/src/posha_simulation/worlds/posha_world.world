@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="posha_world">
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+    <model name="stove_top">
+      <pose>0 0 0 0 0 0</pose>
+      <link name="stove_link"><visual><geometry><box><size>1.0 0.6 0.05</size></box></geometry></visual></link>
+    </model>
+    <model name="pan1"><pose>-0.20 0.15 0.03 0 0 0</pose><link><visual><geometry><cylinder><radius>0.13</radius><length>0.06</length></cylinder></geometry></visual></link></model>
+    <model name="pan2"><pose>0.20 0.15 0.03 0 0 0</pose><link><visual><geometry><cylinder><radius>0.13</radius><length>0.06</length></cylinder></geometry></visual></link></model>
+    <model name="container_tray"><pose>0 -0.15 0.03 0 0 0</pose><link><visual><geometry><box><size>0.7 0.15 0.02</size></box></geometry></visual></link></model>
+    <model name="container1"><pose>-0.30 -0.15 0.055 0 0 0</pose><link><visual><geometry><box><size>0.07 0.07 0.07</size></box></geometry></visual></link></model>
+    <model name="container5"><pose>0.30 -0.15 0.055 0 0 0</pose><link><visual><geometry><box><size>0.07 0.07 0.07</size></box></geometry></visual></link></model>
+    <model name="pod1"><pose>0.25 -0.05 0.055 0 0 0</pose><link><visual><geometry><cylinder><radius>0.015</radius><length>0.035</length></cylinder></geometry></visual></link></model>
+    <model name="pod19"><pose>-0.25 -0.05 0.055 0 0 0</pose><link><visual><geometry><cylinder><radius>0.015</radius><length>0.035</length></cylinder></geometry></visual></link></model>
+  </world>
+</sdf>

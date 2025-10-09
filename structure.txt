@@ -1,0 +1,18 @@
+posha_ros2_ws/
+├── CMakeLists.txt
+└── src/
+    └── posha_simulation/
+        ├── CMakeLists.txt
+        ├── package.xml
+        ├── resource/posha_simulation
+        ├── scripts/
+        │   ├── simple_test.py
+        │   └── path_planner.py
+        ├── launch/
+        │   └── simulation.launch.py
+        ├── urdf/
+        │   ├── simple_workspace.urdf
+        │   └── workspace.urdf.xacro
+        └── config/
+            └── rviz/
+                └── simulation.rviz
