@@ -1,4 +1,4 @@
-# 🤖 Posha Robotics Engineering Internship Assignment
+0# 🤖 Posha Robotics Engineering Internship Assignment
 
 ## Autonomous Cooking Robot Path Planning and Analysis
 
@@ -125,7 +125,10 @@ posha_simulation/
     ├── advance_planner.py
     └── advance_controller.py
 ```
-
+---
+cd ~/ros2_ws
+colcon build --packages-select posha_simulation
+source install/setup.bash
 ---
 
 ## 🛠️ Installation Options
