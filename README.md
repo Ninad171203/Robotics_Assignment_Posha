@@ -103,6 +103,27 @@ Robotics_Assignment_Posha/
 ├── 🚀 launch_standalone_simulation.sh
 ├── 📋 SUBMISSION_CHECKLIST.md
 └── ⚠️ .gitignore
+
+---
+
+Integerated Repository Structure for Direct ROS2 Gazebo Simulation
+
+posha_simulation/
+├── package.xml
+├── setup.py
+├── CMakeLists.txt
+├── launch/
+│   └── simulation.launch.py
+├── urdf/
+│   └── workspace.urdf
+├── worlds/
+│   └── empty.world
+├── config/
+│   └── piper_simulation.rviz
+└── posha_simulation/
+    ├── __init__.py
+    ├── piper_planner.py
+    └── piper_controller.py
 ```
 
 ---
