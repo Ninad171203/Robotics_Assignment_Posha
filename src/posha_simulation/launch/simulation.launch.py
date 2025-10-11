@@ -1,21 +1,23 @@
 #!/usr/bin/env python3
 """
 Complete simulation launch file for Posha Robotics Assignment
-Launches Gazebo, RViz, and all necessary nodes - FIXED VERSION
+With Piper robot integration
 """
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import ExecuteProcess, IncludeLaunchDescription
+from launch.actions import ExecuteProcess, IncludeLaunchDescription, RegisterEventHandler
+from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution, Command
 from launch_ros.substitutions import FindPackageShare
 import os
 
 def generate_launch_description():
 
-    # Get package share directory
+    # Get package paths
     pkg_path = FindPackageShare('posha_simulation').find('posha_simulation')
+    piper_pkg_path = FindPackageShare('piper_description').find('piper_description')
     
     launch_description = LaunchDescription()
 
@@ -29,46 +31,59 @@ def generate_launch_description():
             ])
         ]),
         launch_arguments={
-            'world': PathJoinSubstitution([
-                pkg_path, 'worlds', 'empty.world'
-            ])
+            'world': PathJoinSubstitution([pkg_path, 'worlds', 'empty.world']),
+            'verbose': 'true'
         }.items()
     )
 
-    # Spawn Robot in Gazebo
-    spawn_entity = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=[
-            '-entity', 'posha_robot',
-            '-file', PathJoinSubstitution([pkg_path, 'urdf', 'simple_workspace.urdf']),
-            '-x', '0.0', '-y', '0.0', '-z', '0.1'
-        ],
-        output='screen'
-    )
-
-    # Start Robot State Publisher
+    # Robot State Publisher for Piper robot
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         name='robot_state_publisher',
         output='screen',
         parameters=[{
-            'robot_description': open(PathJoinSubstitution([pkg_path, 'urdf', 'simple_workspace.urdf']), 'r').read(),
+            'robot_description': open(PathJoinSubstitution([piper_pkg_path, 'urdf', 'piper.urdf']), 'r').read(),
             'use_sim_time': True
         }]
     )
 
-    # Start Joint State Publisher GUI
+    # Spawn Piper Robot in Gazebo
+    spawn_robot = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', 'piper_robot',
+            '-file', PathJoinSubstitution([piper_pkg_path, 'urdf', 'piper.urdf']),
+            '-x', '0.0', '-y', '0.0', '-z', '0.1',
+            '-Y', '0.0'
+        ],
+        output='screen'
+    )
+
+    # Spawn Workspace Objects
+    spawn_workspace = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', 'workspace_objects',
+            '-file', PathJoinSubstitution([pkg_path, 'urdf', 'workspace.urdf']),
+            '-x', '0.0', '-y', '0.0', '-z', '0.0'
+        ],
+        output='screen'
+    )
+
+    # Start Joint State Publisher
     joint_state_publisher = Node(
         package='joint_state_publisher_gui',
         executable='joint_state_publisher_gui',
         name='joint_state_publisher_gui',
-        output='screen'
+        output='screen',
+        parameters=[{'use_sim_time': True}]
     )
 
     # Start RViz2 with configuration
-    rviz_config_path = PathJoinSubstitution([pkg_path, 'config', 'simulation.rviz'])
+    rviz_config_path = PathJoinSubstitution([pkg_path, 'config', 'piper_simulation.rviz'])
     rviz2 = Node(
         package='rviz2',
         executable='rviz2',
@@ -81,17 +96,17 @@ def generate_launch_description():
     # Start Path Planner Node
     path_planner = Node(
         package='posha_simulation',
-        executable='advanced_planner.py',
-        name='advanced_path_planner',
+        executable='piper_planner.py',
+        name='piper_path_planner',
         output='screen',
         parameters=[{'use_sim_time': True}]
     )
 
-    # Start Test Node
-    test_node = Node(
+    # Start Controller Node
+    controller_node = Node(
         package='posha_simulation',
-        executable='simple_test.py',
-        name='assignment_test_node',
+        executable='piper_controller.py',
+        name='piper_controller',
         output='screen',
         parameters=[{'use_sim_time': True}]
     )
@@ -100,9 +115,10 @@ def generate_launch_description():
     launch_description.add_action(gazebo_launch)
     launch_description.add_action(robot_state_publisher)
     launch_description.add_action(joint_state_publisher)
-    launch_description.add_action(spawn_entity)
+    launch_description.add_action(spawn_robot)
+    launch_description.add_action(spawn_workspace)
     launch_description.add_action(rviz2)
     launch_description.add_action(path_planner)
-    launch_description.add_action(test_node)
+    launch_description.add_action(controller_node)
 
     return launch_description
