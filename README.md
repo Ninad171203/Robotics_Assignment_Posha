@@ -124,6 +124,8 @@ posha_simulation/
     ├── __init__.py
     ├── advance_planner.py
     └── advance_controller.py
+
+Ignore the other files in the Structure.
 ```
 ---
 cd ~/ros2_ws
