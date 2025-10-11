@@ -1,0 +1,19 @@
+"""
+Posha Simulation Package
+ROS 2 package for Posha Robotics Assignment simulation with Piper robot
+"""
+
+__version__ = '1.0.0'
+__author__ = 'Your Name'
+__email__ = 'your.email@example.com'
+__description__ = 'Posha Robotics Assignment Simulation Package'
+
+# Import main modules to make them available when package is imported
+from .piper_planner import PiperPlanner
+from .piper_controller import PiperController
+
+# List of public API
+__all__ = [
+    'PiperPlanner',
+    'PiperController',
+]
