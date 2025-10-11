@@ -54,7 +54,7 @@ colcon build --packages-select posha_simulation
 source install/setup.bash
 
 # Run simulation
-ros2 launch posha_simulation gazebo_simulation.launch.py
+ros2 launch posha_simulation simulation.launch.py
 ```
 
 ---
