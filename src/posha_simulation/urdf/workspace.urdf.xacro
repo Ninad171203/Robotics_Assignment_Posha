@@ -1,63 +1,159 @@
 <?xml version="1.0"?>
-<robot name="posha_workspace" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-  <xacro:property name="base_length" value="1.5" />
-  <xacro:property name="base_width" value="1.0" />
-  <xacro:property name="base_height" value="0.05" />
+<robot name="posha_workspace">
 
   <!-- Base Platform -->
-  <link name="base_platform">
-    <inertial>
-      <mass value="10"/>
-      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
-    </inertial>
+  <link name="workspace_base">
     <visual>
       <geometry>
-        <box size="${base_length} ${base_width} ${base_height}"/>
+        <box size="1.5 1.2 0.02"/>
       </geometry>
       <material name="gray">
-        <color rgba="0.7 0.7 0.7 1.0"/>
+        <color rgba="0.3 0.3 0.3 1.0"/>
       </material>
     </visual>
     <collision>
       <geometry>
-        <box size="${base_length} ${base_width} ${base_height}"/>
+        <box size="1.5 1.2 0.02"/>
       </geometry>
     </collision>
   </link>
 
-  <!-- Macro Container Macro -->
-  <xacro:macro name="macro_container" params="name x y color">
-    <link name="${name}">
-      <inertial>
-        <mass value="1.2"/>
-        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-      </inertial>
-      <visual>
-        <geometry>
-          <box size="0.15 0.15 0.2"/>
-        </geometry>
-        <material name="${color}"/>
-      </visual>
-      <collision>
-        <geometry>
-          <box size="0.15 0.15 0.2"/>
-        </geometry>
-      </collision>
-    </link>
-    
-    <joint name="${name}_joint" type="fixed">
-      <parent link="base_platform"/>
-      <child link="${name}"/>
-      <origin xyz="${x} ${y} 0.125" rpy="0 0 0"/>
-    </joint>
-  </xacro:macro>
+  <!-- Container 1 -->
+  <link name="container_1">
+    <visual>
+      <geometry>
+        <cylinder length="0.12" radius="0.04"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.12" radius="0.04"/>
+      </geometry>
+    </collision>
+  </link>
 
-  <!-- Instantiate Containers -->
-  <xacro:macro_container name="container_1" x="0.3" y="0.3" color="blue"/>
-  <xacro:macro_container name="container_2" x="0.3" y="0.1" color="red"/>
-  <xacro:macro_container name="container_3" x="0.3" y="-0.1" color="green"/>
-  <xacro:macro_container name="container_4" x="0.3" y="-0.3" color="yellow"/>
-  <xacro:macro_container name="container_5" x="0.5" y="0.0" color="purple"/>
+  <joint name="container_1_joint" type="fixed">
+    <parent link="workspace_base"/>
+    <child link="container_1"/>
+    <origin xyz="0.3 0.3 0.06" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Container 5 -->
+  <link name="container_5">
+    <visual>
+      <geometry>
+        <cylinder length="0.12" radius="0.04"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.12" radius="0.04"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="container_5_joint" type="fixed">
+    <parent link="workspace_base"/>
+    <child link="container_5"/>
+    <origin xyz="0.3 -0.3 0.06" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Pan 1 -->
+  <link name="pan_1">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.08"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="1.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.05" radius="0.08"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="pan_1_joint" type="fixed">
+    <parent link="workspace_base"/>
+    <child link="pan_1"/>
+    <origin xyz="0.0 -0.3 0.025" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Pan 2 -->
+  <link name="pan_2">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.08"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.05" radius="0.08"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="pan_2_joint" type="fixed">
+    <parent link="workspace_base"/>
+    <child link="pan_2"/>
+    <origin xyz="0.0 0.3 0.025" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Spice Pod 1 -->
+  <link name="spice_pod_1">
+    <visual>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+      <material name="purple">
+        <color rgba="0.5 0.0 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="spice_pod_1_joint" type="fixed">
+    <parent link="workspace_base"/>
+    <child link="spice_pod_1"/>
+    <origin xyz="-0.25 0.15 0.025" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Spice Pod 19 -->
+  <link name="spice_pod_19">
+    <visual>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+      <material name="orange">
+        <color rgba="1.0 0.5 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="spice_pod_19_joint" type="fixed">
+    <parent link="workspace_base"/>
+    <child link="spice_pod_19"/>
+    <origin xyz="-0.25 -0.15 0.025" rpy="0 0 0"/>
+  </joint>
 
 </robot>
