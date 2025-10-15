@@ -15,9 +15,9 @@ class PiperPlanner(Node):
     def __init__(self):
         super().__init__('piper_path_planner')
         
-        self.get_logger().info("🚀 Piper Path Planner Initialized")
+        self.get_logger().info("Piper Path Planner Initialized")
         
-        # Workspace coordinates (same as assignment)
+        # Workspace coordinates 
         self.workspace = {
             'container_1': [0.3, 0.3, 0.3],
             'container_5': [0.3, -0.3, 0.3],
@@ -44,7 +44,7 @@ class PiperPlanner(Node):
         self.get_logger().info("✅ Piper Planner Ready for Posha Assignment Tasks")
 
     def joint_state_callback(self, msg):
-        """Update current joint positions"""
+       
         if len(msg.position) >= 8:
             self.current_joint_positions = list(msg.position)
 
@@ -96,7 +96,7 @@ class PiperPlanner(Node):
     def inverse_kinematics(self, target_pose):
         """
         Simplified inverse kinematics for Piper robot
-        This is a placeholder - you'll need to implement proper IK
+        
         """
         x, y, z = target_pose
         
@@ -175,12 +175,12 @@ def main():
         planner.plan_micro_dispense('spice_pod_1', 'pan_2')
         planner.plan_micro_dispense('spice_pod_19', 'pan_1')
         
-        planner.get_logger().info("✅ All planning tasks completed!")
+        planner.get_logger().info(" All planning tasks completed!")
         
         rclpy.spin(planner)
         
     except KeyboardInterrupt:
-        planner.get_logger().info("🛑 Planner shutdown requested")
+        planner.get_logger().info(" Planner shutdown requested")
     finally:
         planner.destroy_node()
         rclpy.shutdown()
